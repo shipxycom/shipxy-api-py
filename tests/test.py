@@ -1,11 +1,11 @@
-import api.Shipxy as Shipxy
+from src import Shipxy
 
-# from key import key
-key = "请从 API控制台 申请";
+from key import key
+# key = "请从 API控制台 申请";
 
 if __name__ == '__main__':
     # response = Shipxy.SearchShip(key, "coco")
-    # response = Shipxy.GetSingleShip(key, 413961925)
+    response = Shipxy.GetSingleShip(key, 413961925)
     # response = Shipxy.GetManyShip(key, "413961925,477232800,477172700")
     # response = Shipxy.GetFleetShip(key, "6db8d8ec-858d-4417-86c0-666d61e340bf")
     # response = Shipxy.GetSurRoundingShip(key, 413961925)
@@ -57,5 +57,5 @@ if __name__ == '__main__':
     # response = Shipxy.GetArea(key, '1d0a807c-5c39-492f-8c99-8a1135da6667')
     # response = Shipxy.DeleteArea(key, '1d0a807c-5c39-492f-8c99-8a1135da6667')
 
-    # print(response)
-    print("test")
+    print(response)
+    # print("test")

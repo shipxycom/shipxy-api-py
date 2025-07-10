@@ -1,4 +1,4 @@
-from api.BaseMethon import postMethodJson, getMethodJson
+from src.BaseMethon import postMethodJson, getMethodJson
 
 
 def SearchShip(key: str, keywords: str, max: int = 100):
