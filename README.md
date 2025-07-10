@@ -4,8 +4,12 @@
 [在线开发文档](https://hiiau7lsqq.feishu.cn/wiki/E0wAwrPpvieGhSk5wLCctNqonVb)&nbsp;&nbsp;
 [github](https://github.com/shipxycom/shipxy-api-py)&nbsp;&nbsp;
 [gitee](https://gitee.com/shipxycom/shipxy-api-py)&nbsp;&nbsp;
+[pypi](https://pypi.org/project/shipxy-api/)&nbsp;&nbsp;
 
 ## 示例用法
+```
+pip install shipxy-api
+```
 ```
 from shipxy import Shipxy
 key = "请从 API控制台 申请";
