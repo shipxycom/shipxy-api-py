@@ -1,7 +1,7 @@
 from shipxy import Shipxy
 
-from key import key
-# key = "请从 API控制台 申请";
+# from key import key
+key = "请从 API控制台 申请";
 
 if __name__ == '__main__':
     # response = Shipxy.SearchShip(key, "coco")
