@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 setup(
     name='shipxy-api',
-    version='0.3',
+    version='0.1',
     packages=find_packages(),
     install_requires=[
         'requests'
@@ -13,6 +13,6 @@ setup(
     author="White",
     author_email="249898979@qq.com",
     description="亿海蓝Elane船讯网sdk https://www.shipxy.com/",
-    long_description=long_description,               # 详细说明
+    long_description=long_description,
     long_description_content_type="text/markdown",
 )

@@ -1,4 +1,4 @@
-from src.BaseMethon import postMethodJson, getMethodJson
+from shipxy.BaseMethon import postMethodJson, getMethodJson
 
 
 def SearchShip(key: str, keywords: str, max: int = 100):

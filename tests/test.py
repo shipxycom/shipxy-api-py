@@ -1,4 +1,4 @@
-from src import Shipxy
+from shipxy import Shipxy
 
 from key import key
 # key = "请从 API控制台 申请";

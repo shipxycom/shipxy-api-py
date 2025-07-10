@@ -7,7 +7,7 @@
 
 ## 示例用法
 ```
-import api.Shipxy as Shipxy
+from shipxy import Shipxy
 key = "请从 API控制台 申请";
 if __name__ == '__main__':
     response = Shipxy.GetManyShip(key, "413961925,477232800,477172700")
