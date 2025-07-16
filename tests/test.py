@@ -37,7 +37,7 @@ if __name__ == '__main__':
     # response = Shipxy.GetTides(key)
     # response = Shipxy.GetTideData(key, 8000005, '2025-03-01', '2025-03-05')
 
-    response = Shipxy.GetNavWarning(key, '2024-07-21 20:00', '2024-09-21 20:00')
+    response = Shipxy.GetNavWarning(key, '2024-07-21 20:00', '2024-09-21 20:00', 2)
 
     # response = Shipxy.AddFleet(key, "测试船队1", "477985700,412751691", 1);
     # response = Shipxy.UpdateFleet(key, 'c02def78-a57d-4311-bee3-1c89a018cddf', "测试船队", "477985700", 1)

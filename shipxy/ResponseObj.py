@@ -2,6 +2,7 @@ from typing import List
 
 from pydantic import BaseModel
 
+
 class SearchShipResult(BaseModel):
     match_type: int
     mmsi: int
@@ -25,7 +26,7 @@ class ShipPosition(BaseModel):
     imo: int
     call_sign: str
     ship_name: str
-    ship_cnname: str = '' # 有些结果可能没有此字段
+    ship_cnname: str = ''  # 有些结果可能没有此字段
     data_source: int
     ship_type: int
     length: float
@@ -702,3 +703,22 @@ class GetWeatherByPointResponse(BaseModel):
     status: float
     msg: str
     data: GetWeatherByPointData
+
+
+class GetNavWarningData(BaseModel):
+    warning_type: int = 0
+    source: str = ''
+    title: str = ''
+    range_type: int = 0
+    range_points: str = ''
+    radius: float = 0
+    pub_time: str = ''
+    expire_time: str = ''
+    content: str = ''
+
+
+class GetNavWarningResponse(BaseModel):
+    status: float
+    msg: str
+    total: int
+    data: List[GetNavWarningData]

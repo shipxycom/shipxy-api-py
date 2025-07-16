@@ -9,7 +9,7 @@ from shipxy.ResponseObj import SearchShipResponse, SingleShipResponse, ManyShipR
     SearchShipApproachResponse, GetPortOfCallByShipResponse, GetPortOfCallByShipPortResponse, GetShipStatusResponse, \
     GetPortOfCallByPortResponse, PlanRouteByPointResponse, PlanRouteByPortResponse, GetSingleETAPreciseResponse, \
     GetWeatherResponse, GetWeatherByPointResponse, GetAllTyphoonResponse, GetSingleTyphoonResponse, GetTidesResponse, \
-    GetTideDataResponse
+    GetTideDataResponse, GetNavWarningResponse
 
 
 def SearchShip(key: str, keywords: str, max: int = 100) -> SearchShipResponse:
@@ -551,7 +551,7 @@ def GetTideData(key: str, port_code: str, start_date: str, end_date: str) -> Get
     return GetTideDataResponse(**response)
 
 
-def GetNavWarning(key: str, start_time: str, end_time: str, warning_type: int = 0):
+def GetNavWarning(key: str, start_time: str, end_time: str, warning_type: int = 0)->GetNavWarningResponse:
     """
     * 8海事数据-8.1航行警告查询
     * https://hiiau7lsqq.feishu.cn/wiki/DCgdwVip5ifCpAkQ3lfcq8OEnOc
@@ -568,7 +568,7 @@ def GetNavWarning(key: str, start_time: str, end_time: str, warning_type: int = 
         "warning_type": warning_type
     }
     response = getMethodJson("/GetNavWarning", params)
-    return response
+    return GetNavWarningResponse(**response)
 
 
 def AddFleet(key: str, fleet_name: str, mmsis: str, monitor: int):
