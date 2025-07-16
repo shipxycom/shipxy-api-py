@@ -1,7 +1,18 @@
+from typing import List
+
+from pydantic import BaseModel
+
 from shipxy.BaseMethon import postMethodJson, getMethodJson
+from shipxy.ResponseObj import SearchShipResponse, SingleShipResponse, ManyShipResponse, FleetShipResponse, \
+    SurRoundingShipResponse, AreaShipResponse, ShipRegistryResponse, SearchShipParticularResponse, SearchPortResponse, \
+    GetBerthShipsResponse, GetAnchorShipsResponse, GetETAShipsResponse, GetShipTrackResponse, \
+    SearchShipApproachResponse, GetPortOfCallByShipResponse, GetPortOfCallByShipPortResponse, GetShipStatusResponse, \
+    GetPortOfCallByPortResponse, PlanRouteByPointResponse, PlanRouteByPortResponse, GetSingleETAPreciseResponse, \
+    GetWeatherResponse, GetWeatherByPointResponse, GetAllTyphoonResponse, GetSingleTyphoonResponse, GetTidesResponse, \
+    GetTideDataResponse
 
 
-def SearchShip(key: str, keywords: str, max: int = 100):
+def SearchShip(key: str, keywords: str, max: int = 100) -> SearchShipResponse:
     """
     * 1船舶查询-1.1船舶模糊查询
     * https://hiiau7lsqq.feishu.cn/wiki/VCSYw1FU3iP0zwk2IIFcf2oynPb
@@ -16,10 +27,10 @@ def SearchShip(key: str, keywords: str, max: int = 100):
         "max": max
     }
     response = postMethodJson("/SearchShip", params)
-    return response
+    return SearchShipResponse(**response)
 
 
-def GetSingleShip(key: str, mmsi: int):
+def GetSingleShip(key: str, mmsi: int) -> SingleShipResponse:
     """
     * 1船舶查询-1.2船舶位置查询-单船位置查询
     * https://hiiau7lsqq.feishu.cn/wiki/GxF2w6cZHisQiEkBRatcoIqlnfc
@@ -32,10 +43,10 @@ def GetSingleShip(key: str, mmsi: int):
         "mmsi": mmsi,
     }
     response = getMethodJson("/GetSingleShip", params)
-    return response
+    return SingleShipResponse(**response)
 
 
-def GetManyShip(key: str, mmsis: str):
+def GetManyShip(key: str, mmsis: str) -> ManyShipResponse:
     """
     * 1船舶查询-1.2船舶位置查询-多船位置查询
     * https://hiiau7lsqq.feishu.cn/wiki/GxF2w6cZHisQiEkBRatcoIqlnfc
@@ -48,10 +59,10 @@ def GetManyShip(key: str, mmsis: str):
         "mmsis": mmsis,
     }
     response = getMethodJson("/GetManyShip", params)
-    return response
+    return ManyShipResponse(**response)
 
 
-def GetFleetShip(key: str, fleet_id: str):
+def GetFleetShip(key: str, fleet_id: str) -> FleetShipResponse:
     """
     * 1船舶查询-1.2船舶位置查询-船队船位置查询
     * https://hiiau7lsqq.feishu.cn/wiki/GxF2w6cZHisQiEkBRatcoIqlnfc
@@ -64,10 +75,10 @@ def GetFleetShip(key: str, fleet_id: str):
         "fleet_id": fleet_id,
     }
     response = getMethodJson("/GetFleetShip", params)
-    return response
+    return FleetShipResponse(**response)
 
 
-def GetSurRoundingShip(key: str, mmsi: int):
+def GetSurRoundingShip(key: str, mmsi: int) -> SurRoundingShipResponse:
     """
     * 1船舶查询-1.3周边船舶查询
     * https://hiiau7lsqq.feishu.cn/wiki/XXTiwDpetivSFhkciWic6qarnOc
@@ -80,10 +91,10 @@ def GetSurRoundingShip(key: str, mmsi: int):
         "mmsi": mmsi,
     }
     response = getMethodJson("/GetSurRoundingShip", params)
-    return response
+    return SurRoundingShipResponse(**response)
 
 
-def GetAreaShip(key: str, region: str, output: int = 1, scode: int = None):
+def GetAreaShip(key: str, region: str, output: int = 1, scode: int = None) -> AreaShipResponse:
     """
     * 1船舶查询-1.4区域船舶查询
     * https://hiiau7lsqq.feishu.cn/wiki/ZlcrwKpgqik1L3kvbIMcBJUCn1U
@@ -100,10 +111,10 @@ def GetAreaShip(key: str, region: str, output: int = 1, scode: int = None):
         "scode": scode
     }
     response = getMethodJson("/GetAreaShip", params)
-    return response
+    return AreaShipResponse(**response)
 
 
-def GetShipRegistry(key: str, mmsi: int):
+def GetShipRegistry(key: str, mmsi: int) -> ShipRegistryResponse:
     """
     * 1船舶查询-1.5船舶船籍查询
     * https://hiiau7lsqq.feishu.cn/wiki/Ko5gw1o0ZiMQankWEAscSMoin7g
@@ -116,10 +127,11 @@ def GetShipRegistry(key: str, mmsi: int):
         "mmsi": mmsi,
     }
     response = getMethodJson("/GetShipRegistry", params)
-    return response
+    return ShipRegistryResponse(**response)
 
 
-def SearchShipParticular(key: str, mmsi: int, imo: int, call_sign: str, ship_name: str):
+def SearchShipParticular(key: str, mmsi: int = None, imo: int = None, call_sign: str = None,
+                         ship_name: str = None) -> SearchShipParticularResponse:
     """
     * 1船舶查询-1.6船舶档案查询
     * https://hiiau7lsqq.feishu.cn/wiki/Vvd2wHECliYz6okSoYucTRXvnsd
@@ -141,10 +153,10 @@ def SearchShipParticular(key: str, mmsi: int, imo: int, call_sign: str, ship_nam
     # for key, value in kwargs.items():
     #     params[key] = value
     response = getMethodJson("/SearchShipParticular", params)
-    return response
+    return SearchShipParticularResponse(**response)
 
 
-def SearchPort(key: str, keywords: str, max: int = 100):
+def SearchPort(key: str, keywords: str, max: int = 100) -> SearchPortResponse:
     """
     * 2港口查询-2.1港口信息查询
     * https://hiiau7lsqq.feishu.cn/wiki/DAlUwEn9Zi50gckSv0uc1qsIn6f
@@ -159,10 +171,10 @@ def SearchPort(key: str, keywords: str, max: int = 100):
         "max": max
     }
     response = getMethodJson("/SearchPort", params)
-    return response
+    return SearchPortResponse(**response)
 
 
-def GetBerthShips(key: str, port_code: str, ship_type: int = None):
+def GetBerthShips(key: str, port_code: str, ship_type: int = None) -> GetBerthShipsResponse:
     """
     * 2港口查询-2.2港口当前靠泊船查询
     * https://hiiau7lsqq.feishu.cn/wiki/KdBNwIxOhijpALkCkNXc69MKn3g
@@ -177,10 +189,10 @@ def GetBerthShips(key: str, port_code: str, ship_type: int = None):
         "ship_type": ship_type
     }
     response = getMethodJson("/GetBerthShips", params)
-    return response
+    return GetBerthShipsResponse(**response)
 
 
-def GetAnchorShips(key: str, port_code: str, ship_type: int = None):
+def GetAnchorShips(key: str, port_code: str, ship_type: int = None) -> GetAnchorShipsResponse:
     """
     * 2港口查询-2.3港口当前到锚船舶查询
     * https://hiiau7lsqq.feishu.cn/wiki/WTHnwa66niA4VhkmNVXchRRSnYe
@@ -195,10 +207,10 @@ def GetAnchorShips(key: str, port_code: str, ship_type: int = None):
         "ship_type": ship_type
     }
     response = getMethodJson("/GetAnchorShips", params)
-    return response
+    return GetAnchorShipsResponse(**response)
 
 
-def GetETAShips(key: str, port_code: str, start_time: int, end_time: int, ship_type: int = None):
+def GetETAShips(key: str, port_code: str, start_time: int, end_time: int, ship_type: int = None) -> GetETAShipsResponse:
     """
     * 2港口查询-2.4港口预抵船舶查询
     * https://hiiau7lsqq.feishu.cn/wiki/Poe3wdXkwiwzMUkATcJcigeBnJh
@@ -217,10 +229,10 @@ def GetETAShips(key: str, port_code: str, start_time: int, end_time: int, ship_t
         "ship_type": ship_type
     }
     response = getMethodJson("/GetETAShips", params)
-    return response
+    return GetETAShipsResponse(**response)
 
 
-def GetShipTrack(key: str, mmsi: int, start_time: int, end_time: int, output: int = 1):
+def GetShipTrack(key: str, mmsi: int, start_time: int, end_time: int, output: int = 1) -> GetShipTrackResponse:
     """
     * 3历史行为-3.1船舶历史轨迹查询
     * https://hiiau7lsqq.feishu.cn/wiki/RK2Uwh7tziQ7SnkzlDgcUk8Nnkc
@@ -239,10 +251,11 @@ def GetShipTrack(key: str, mmsi: int, start_time: int, end_time: int, output: in
         "output": output
     }
     response = getMethodJson("/GetShipTrack", params)
-    return response
+    return GetShipTrackResponse(**response)
 
 
-def SearchshipApproach(key: str, mmsi: int, start_time: int, end_time: int, approach_zone: int = None):
+def SearchshipApproach(key: str, mmsi: int, start_time: int, end_time: int,
+                       approach_zone: int = None) -> SearchShipApproachResponse:
     """
     * 3历史行为-3.2船舶搭靠记录查询
     * https://hiiau7lsqq.feishu.cn/wiki/GYrTwxfzRiQdDxkJYOWcF3kKnnf
@@ -261,11 +274,12 @@ def SearchshipApproach(key: str, mmsi: int, start_time: int, end_time: int, appr
         "approach_zone": approach_zone
     }
     response = getMethodJson("/SearchshipApproach", params)
-    return response
+    return SearchShipApproachResponse(**response)
 
 
-def GetPortofCallByShip(key: str, mmsi: int, imo: int, ship_name: str, call_sign: str, start_time: int, end_time: int,
-                        time_zone: int = 2):
+def GetPortofCallByShip(key: str, mmsi: int, start_time: int, end_time: int, imo: int = None, ship_name: str = None,
+                        call_sign: str = None,
+                        time_zone: int = 2) -> GetPortOfCallByShipResponse:
     """
     * 4挂靠记录-4.1船舶历史挂靠记录
     * https://hiiau7lsqq.feishu.cn/wiki/Sv5rw61KVioV0ekq4ytcBpGgnGd
@@ -290,11 +304,12 @@ def GetPortofCallByShip(key: str, mmsi: int, imo: int, ship_name: str, call_sign
         "time_zone": time_zone
     }
     response = getMethodJson("/GetPortofCallByShip", params)
-    return response
+    return GetPortOfCallByShipResponse(**response)
 
 
-def GetPortofCallByShipPort(key: str, mmsi: int, imo: int, ship_name: str, call_sign: str, port_code: str,
-                            start_time: int, end_time: int, time_zone: int = 2):
+def GetPortofCallByShipPort(key: str, mmsi: int, port_code: str,
+                            start_time: int, end_time: int, imo: int = None, ship_name: str = None, call_sign: str = None,
+                            time_zone: int = 2) -> GetPortOfCallByShipPortResponse:
     """
     * 4挂靠记录-4.2船舶挂靠指定港口记录
     * https://hiiau7lsqq.feishu.cn/wiki/R01xw8GxYiPd08kGhDeckVojnSC
@@ -321,10 +336,10 @@ def GetPortofCallByShipPort(key: str, mmsi: int, imo: int, ship_name: str, call_
         "time_zone": time_zone
     }
     response = getMethodJson("/GetPortofCallByShipPort", params)
-    return response
+    return GetPortOfCallByShipPortResponse(**response)
 
 
-def GetShipStatus(key: str, mmsi: int, imo: int, ship_name: str, call_sign: str, time_zone: int = 2):
+def GetShipStatus(key: str, mmsi: int, imo: int = None, ship_name: str = None, call_sign: str = None, time_zone: int = 2) -> GetShipStatusResponse:
     """
     * 4挂靠记录-4.3船舶当前挂靠信息
     * https://hiiau7lsqq.feishu.cn/wiki/O3PRwZoAjiX3DdknudicZnVpnxH
@@ -345,10 +360,10 @@ def GetShipStatus(key: str, mmsi: int, imo: int, ship_name: str, call_sign: str,
         "time_zone": time_zone
     }
     response = getMethodJson("/GetShipStatus", params)
-    return response
+    return GetShipStatusResponse(**response)
 
 
-def GetPortofCallByPort(key: str, port_code: str, start_time: int, end_time: int, type: int = 1, time_zone: int = 2):
+def GetPortofCallByPort(key: str, port_code: str, start_time: int, end_time: int, type: int = 1, time_zone: int = 2) -> GetPortOfCallByPortResponse:
     """
     * 4挂靠记录-4.4港口挂靠历史船舶
     * https://hiiau7lsqq.feishu.cn/wiki/G9BDwzNPqiXdyckzFrBctxYUnHd
@@ -369,10 +384,10 @@ def GetPortofCallByPort(key: str, port_code: str, start_time: int, end_time: int
         "time_zone": time_zone
     }
     response = getMethodJson("/GetPortofCallByPort", params)
-    return response
+    return GetPortOfCallByPortResponse(**response)
 
 
-def PlanRouteByPoint(key: str, start_point: str, end_point: str, avoid: str = None, through: str = None):
+def PlanRouteByPoint(key: str, start_point: str, end_point: str, avoid: str = None, through: str = None) -> PlanRouteByPointResponse:
     """
     * 5航线规划-5.1点到点航线规划
     * https://hiiau7lsqq.feishu.cn/wiki/A3UBwJ7pViozTskSFwPcJ4Ldnze
@@ -391,10 +406,10 @@ def PlanRouteByPoint(key: str, start_point: str, end_point: str, avoid: str = No
         "through": through,
     }
     response = getMethodJson("/PlanRouteByPoint", params)
-    return response
+    return PlanRouteByPointResponse(**response)
 
 
-def PlanRouteByPort(key: str, start_port_code: str, end_port_code: str, avoid: str = None, through: str = None):
+def PlanRouteByPort(key: str, start_port_code: str, end_port_code: str, avoid: str = None, through: str = None) -> PlanRouteByPortResponse:
     """
     * 5航线规划-5.2港到港航线规划
     * https://hiiau7lsqq.feishu.cn/wiki/NpsbwNzWWiJRy2k79bscVljTntd
@@ -413,10 +428,10 @@ def PlanRouteByPort(key: str, start_port_code: str, end_port_code: str, avoid: s
         "through": through
     }
     response = getMethodJson("/PlanRouteByPort", params)
-    return response
+    return PlanRouteByPortResponse(**response)
 
 
-def GetSingleETAPrecise(key: str, mmsi: int, port_code: str, speed: float = None):
+def GetSingleETAPrecise(key: str, mmsi: int, port_code: str, speed: float = None) -> GetSingleETAPreciseResponse:
     """
     * 5航线规划-5.3预计到达时间(ETA)查询
     * https://hiiau7lsqq.feishu.cn/wiki/NMxnw8fEHiRhrPkIpwTcovdfnOg
@@ -433,10 +448,10 @@ def GetSingleETAPrecise(key: str, mmsi: int, port_code: str, speed: float = None
         "speed": speed,
     }
     response = getMethodJson("/GetSingleETAPrecise", params)
-    return response
+    return GetSingleETAPreciseResponse(**response)
 
 
-def GetWeatherByPoint(key: str, lng: float, lat: float, weather_time: int = None):
+def GetWeatherByPoint(key: str, lng: float, lat: float, weather_time: int = None) -> GetWeatherByPointResponse:
     """
     * 6气象天气-6.1单点海洋气象
     * https://hiiau7lsqq.feishu.cn/wiki/AFfAwtwc1ifij6k5JQ9c2u3hnbh
@@ -453,10 +468,10 @@ def GetWeatherByPoint(key: str, lng: float, lat: float, weather_time: int = None
         "lat": lat,
     }
     response = getMethodJson("/GetWeatherByPoint", params)
-    return response
+    return GetWeatherByPointResponse(**response)
 
 
-def GetWeather(key: str, weather_type: int):
+def GetWeather(key: str, weather_type: int)->GetWeatherResponse:
     """
     * 6气象天气-6.2海区气象
     * https://hiiau7lsqq.feishu.cn/wiki/EEdPwP4kqi10qjkehH5cmK2Onwc
@@ -469,10 +484,10 @@ def GetWeather(key: str, weather_type: int):
         "weather_type": weather_type,
     }
     response = getMethodJson("/GetWeather", params)
-    return response
+    return GetWeatherResponse(**response)
 
 
-def GetAllTyphoon(key: str):
+def GetAllTyphoon(key: str) -> GetAllTyphoonResponse:
     """
     * 6气象天气-6.3全球台风-获取全球台风列表
     * https://hiiau7lsqq.feishu.cn/wiki/PuWSw4Nteir49WkMccMcryjNnbp
@@ -483,10 +498,10 @@ def GetAllTyphoon(key: str):
         "key": key,
     }
     response = getMethodJson("/GetAllTyphoon", params)
-    return response
+    return GetAllTyphoonResponse(**response)
 
 
-def GetSingleTyphoon(key: str, typhoon_id: int):
+def GetSingleTyphoon(key: str, typhoon_id: int) -> GetSingleTyphoonResponse:
     """
     * 6气象天气-6.3全球台风-获取单个台风信息
     * https://hiiau7lsqq.feishu.cn/wiki/PuWSw4Nteir49WkMccMcryjNnbp
@@ -499,10 +514,10 @@ def GetSingleTyphoon(key: str, typhoon_id: int):
         "typhoon_id": typhoon_id
     }
     response = getMethodJson("/GetSingleTyphoon", params)
-    return response
+    return GetSingleTyphoonResponse(**response)
 
 
-def GetTides(key: str):
+def GetTides(key: str) -> GetTidesResponse:
     """
     * 6气象天气-6.4国内港口潮汐-查询国内潮汐观测站列表
     * https://hiiau7lsqq.feishu.cn/wiki/Ayoiw98eSi0PrpkZnLnclCy8nzd
@@ -513,10 +528,10 @@ def GetTides(key: str):
         "key": key,
     }
     response = getMethodJson("/GetTides", params)
-    return response
+    return GetTidesResponse(**response)
 
 
-def GetTideData(key: str, port_code: str, start_date: str, end_date: str):
+def GetTideData(key: str, port_code: str, start_date: str, end_date: str) -> GetTideDataResponse:
     """
     * 6气象天气-6.4国内港口潮汐-查询单个观测站潮汐详情
     * https://hiiau7lsqq.feishu.cn/wiki/Ayoiw98eSi0PrpkZnLnclCy8nzd
@@ -533,7 +548,7 @@ def GetTideData(key: str, port_code: str, start_date: str, end_date: str):
         "end_date": end_date
     }
     response = getMethodJson("/GetTideData", params)
-    return response
+    return GetTideDataResponse(**response)
 
 
 def GetNavWarning(key: str, start_time: str, end_time: str, warning_type: int = 0):
@@ -758,6 +773,7 @@ def GetArea(key: str, area_id: str):
     }
     response = postMethodJson("/GetArea", params)
     return response
+
 
 def DeleteArea(key: str, area_id: str):
     """
