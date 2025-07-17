@@ -4,7 +4,7 @@ from key import key
 # key = "请从 API控制台 申请";
 
 if __name__ == '__main__':
-    # response = Shipxy.SearchShip(key, "413961925")
+    # response = Shipxy.SearchShip(key, "coco")
     # response = Shipxy.GetSingleShip(key, 413961925)
     # response = Shipxy.GetManyShip(key, "413961925,477232800,477172700")
     # response = Shipxy.GetFleetShip(key, "f777007b-fb88-4c4c-b4eb-db33e84e99ee")
@@ -35,9 +35,9 @@ if __name__ == '__main__':
     # response = Shipxy.GetAllTyphoon(key)
     # response = Shipxy.GetSingleTyphoon(key, 2477927)
     # response = Shipxy.GetTides(key)
-    # response = Shipxy.GetTideData(key, 8000005, '2025-03-01', '2025-03-05')
+    # response = Shipxy.GetTideData(key, "8000005", '2025-03-01', '2025-03-05')
 
-    response = Shipxy.GetNavWarning(key, '2024-07-21 20:00', '2024-09-21 20:00', 2)
+    # response = Shipxy.GetNavWarning(key, '2024-07-21 20:00', '2024-09-21 20:00', 2)
 
     # response = Shipxy.AddFleet(key, "测试船队1", "477985700,412751691", 1);
     # response = Shipxy.UpdateFleet(key, 'c02def78-a57d-4311-bee3-1c89a018cddf', "测试船队", "477985700", 1)

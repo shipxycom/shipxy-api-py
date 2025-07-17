@@ -25,4 +25,5 @@ def getMethodJson(methodName, params):
 def postMethodJson(methodName, params):
     baseUrl = apiUrl + "/" + methodName
     result = requests.post(baseUrl, params).json()
+    print(result)
     return result
