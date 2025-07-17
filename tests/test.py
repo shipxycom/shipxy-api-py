@@ -9,7 +9,7 @@ if __name__ == '__main__':
     # response = Shipxy.GetManyShip(key, "413961925,477232800,477172700")
     # response = Shipxy.GetFleetShip(key, "f777007b-fb88-4c4c-b4eb-db33e84e99ee")
     # response = Shipxy.GetSurRoundingShip(key, 413961925)
-    response = Shipxy.GetAreaShip(key, "121.289063,35.424868-122.783203,35.281501-122.167969,33.979809")
+    # response = Shipxy.GetAreaShip(key, "121.289063,35.424868-122.783203,35.281501-122.167969,33.979809")
     # response = Shipxy.GetShipRegistry(key, 413961925)
     # response = Shipxy.SearchShipParticular(key, 477172700)
 
@@ -39,7 +39,7 @@ if __name__ == '__main__':
 
     # response = Shipxy.GetNavWarning(key, '2024-07-21 20:00', '2024-09-21 20:00', 2)
 
-    # response = Shipxy.AddFleet(key, "测试船队1", "477985700,412751691", 1);
+    response = Shipxy.AddFleet(key, "测试船队1", "477985700,412751691", 1);
     # response = Shipxy.UpdateFleet(key, 'c02def78-a57d-4311-bee3-1c89a018cddf', "测试船队", "477985700", 1)
     # response = Shipxy.GetFleet(key, 'c02def78-a57d-4311-bee3-1c89a018cddf')
     # response = Shipxy.DeleteFleet(key, '8bef754a-b117-4050-8878-65c979185130')

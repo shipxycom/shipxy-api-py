@@ -574,7 +574,7 @@ def GetNavWarning(key: str, start_time: str, end_time: str, warning_type: int = 
 def AddFleet(key: str, fleet_name: str, mmsis: str, monitor: int):
     """
     * 9监控推送-9.1监控船队管理-设置监控船舶列表-创建船队
-    * https://hiiau7lsqq.feishu.cn/wiki/A3UBwJ7pViozTskSFwPcJ4Ldnze
+    * https://hiiau7lsqq.feishu.cn/wiki/RtL0w0iHDioEP6kvZcScIC95nSe
     :param key: 授权码：必填，船讯网授权码，验证服务权限
     :param fleet_name: 船队名称：必填，为您创建的船队起名，用来后续查询和区分
     :param mmsis: 船舶清单：必填，添加船队下管理的船舶信息，输入多个mmsi编号，用英文逗号隔开
@@ -594,7 +594,7 @@ def AddFleet(key: str, fleet_name: str, mmsis: str, monitor: int):
 def UpdateFleet(key: str, fleet_id: str, fleet_name: str, mmsis: str, monitor: int):
     """
     * 9监控推送-9.1监控船队管理-设置监控船舶列表-更新船队信息
-    * https://hiiau7lsqq.feishu.cn/wiki/A3UBwJ7pViozTskSFwPcJ4Ldnze
+    * https://hiiau7lsqq.feishu.cn/wiki/RtL0w0iHDioEP6kvZcScIC95nSe
     :param key: 授权码：必填，船讯网授权码，验证服务权限
     :param fleet_id: 船队id：必填，船队的ID，用来对船队信息进行维护的唯一标识。
     :param fleet_name: 船队名称：非必填，输入名称则更新船队名称
@@ -616,7 +616,7 @@ def UpdateFleet(key: str, fleet_id: str, fleet_name: str, mmsis: str, monitor: i
 def GetFleet(key: str, fleet_id: str):
     """
     * 9监控推送-9.1监控船队管理-设置监控船舶列表-查询船队
-    * https://hiiau7lsqq.feishu.cn/wiki/A3UBwJ7pViozTskSFwPcJ4Ldnze
+    * https://hiiau7lsqq.feishu.cn/wiki/RtL0w0iHDioEP6kvZcScIC95nSe
     :param key: 授权码：必填，船讯网授权码，验证服务权限
     :param fleet_id: 船队id：必填，船队的ID，用来对船队信息进行维护的唯一标识。
     :return:
@@ -632,7 +632,7 @@ def GetFleet(key: str, fleet_id: str):
 def DeleteFleet(key: str, fleet_id: str):
     """
     * 9监控推送-9.1监控船队管理-设置监控船舶列表-删除船队
-    * https://hiiau7lsqq.feishu.cn/wiki/A3UBwJ7pViozTskSFwPcJ4Ldnze
+    * https://hiiau7lsqq.feishu.cn/wiki/RtL0w0iHDioEP6kvZcScIC95nSe
     :param key: 授权码：必填，船讯网授权码，验证服务权限
     :param fleet_id: 船队id：必填，船队的ID，用来对船队信息进行维护的唯一标识。
     :return:
@@ -648,7 +648,7 @@ def DeleteFleet(key: str, fleet_id: str):
 def AddFleetShip(key: str, fleet_id: str, mmsis: str):
     """
     * 9监控推送-9.1监控船队管理-设置监控船舶列表-船队船舶增加
-    * https://hiiau7lsqq.feishu.cn/wiki/A3UBwJ7pViozTskSFwPcJ4Ldnze
+    * https://hiiau7lsqq.feishu.cn/wiki/RtL0w0iHDioEP6kvZcScIC95nSe
     :param key: 授权码：必填，船讯网授权码，验证服务权限
     :param fleet_id: 船队id：必填，船队的ID，用来对船队信息进行维护的唯一标识。
     :param mmsis: 船舶清单：必填，添加船队管理的船舶，mmsi编号，以英文逗号隔开。增量更新，不变动原有船队船舶，输入的mmsi编号与原有重复时，新填入的不会增加到船队中。
@@ -666,7 +666,7 @@ def AddFleetShip(key: str, fleet_id: str, mmsis: str):
 def UpdateFleetShip(key: str, fleet_id: str, mmsis: str):
     """
     * 9监控推送-9.1监控船队管理-设置监控船舶列表-船队船舶批量更新
-    * https://hiiau7lsqq.feishu.cn/wiki/A3UBwJ7pViozTskSFwPcJ4Ldnze
+    * https://hiiau7lsqq.feishu.cn/wiki/RtL0w0iHDioEP6kvZcScIC95nSe
     :param key: 授权码：必填，船讯网授权码，验证服务权限
     :param fleet_id: 船队id：必填，船队的ID，用来对船队信息进行维护的唯一标识。
     :param mmsis: 船舶清单：必填，添加船队管理的船舶，mmsi编号，以英文逗号隔开。批量覆盖原有的船舶列表，替代式更新。
@@ -684,7 +684,7 @@ def UpdateFleetShip(key: str, fleet_id: str, mmsis: str):
 def DeleteFleetShip(key: str, fleet_id: str, mmsis: str):
     """
     * 9监控推送-9.1监控船队管理-设置监控船舶列表-船队船舶删除
-    * https://hiiau7lsqq.feishu.cn/wiki/A3UBwJ7pViozTskSFwPcJ4Ldnze
+    * https://hiiau7lsqq.feishu.cn/wiki/RtL0w0iHDioEP6kvZcScIC95nSe
     :param key: 授权码：必填，船讯网授权码，验证服务权限
     :param fleet_id: 船队id：必填，船队的ID，用来对船队信息进行维护的唯一标识。
     :param mmsis: 船舶清单：必填，添加船队管理的船舶，mmsi编号，以英文逗号隔开。批量覆盖原有的船舶列表，替代式更新。
@@ -703,7 +703,7 @@ def AddArea(key: str, area_bounds: str, area_name: str, url: str, filter_type: i
             fleet_id: str):
     """
     * 9监控推送-9.4区域监控推送-区域创建
-    * https://hiiau7lsqq.feishu.cn/wiki/A3UBwJ7pViozTskSFwPcJ4Ldnze
+    * https://hiiau7lsqq.feishu.cn/wiki/A0hSwImnBiuKeMkkXOmcfEA9nBe
     :param key: 授权码：必填，船讯网授权码，验证服务权限
     :param area_bounds: 区域范围：必填，经纬度逗号分隔，多个点减号分隔，如： （lng,lat - lng,lat - lng,lat ）经纬度数，多个经纬度坐标点必须按照顺时针或逆时针依次输入。
     :param area_name: 区域名称：必填，为您创建的区域起名，用来后续查询和区分
@@ -732,7 +732,7 @@ def UpdateArea(key: str, area_id: str, area_bounds: str, area_name: str, url: st
                length: str, fleet_id: str):
     """
     * 9监控推送-9.4区域监控推送-区域更新
-    * https://hiiau7lsqq.feishu.cn/wiki/A3UBwJ7pViozTskSFwPcJ4Ldnze
+    * https://hiiau7lsqq.feishu.cn/wiki/A0hSwImnBiuKeMkkXOmcfEA9nBe
     :param key: 授权码：必填，船讯网授权码，验证服务权限
     :param area_id: 区域的ID：必填，区域的id，唯一标识，用来后续对区域的删改查
     :param area_bounds: 区域范围：必填，经纬度逗号分隔，多个点减号分隔，如： （lng,lat - lng,lat - lng,lat ）经纬度数，多个经纬度坐标点必须按照顺时针或逆时针依次输入。
@@ -762,7 +762,7 @@ def UpdateArea(key: str, area_id: str, area_bounds: str, area_name: str, url: st
 def GetArea(key: str, area_id: str):
     """
     * 9监控推送-9.4区域监控推送-区域查询
-    * https://hiiau7lsqq.feishu.cn/wiki/A3UBwJ7pViozTskSFwPcJ4Ldnze
+    * https://hiiau7lsqq.feishu.cn/wiki/A0hSwImnBiuKeMkkXOmcfEA9nBe
     :param key: 授权码：必填，船讯网授权码，验证服务权限
     :param area_id: 区域的ID：必填，区域的id，唯一标识，用来后续对区域的删改查
     :return:
@@ -778,7 +778,7 @@ def GetArea(key: str, area_id: str):
 def DeleteArea(key: str, area_id: str):
     """
     * 9监控推送-9.4区域监控推送-区域查询
-    * https://hiiau7lsqq.feishu.cn/wiki/A3UBwJ7pViozTskSFwPcJ4Ldnze
+    * https://hiiau7lsqq.feishu.cn/wiki/A0hSwImnBiuKeMkkXOmcfEA9nBe
     :param key: 授权码：必填，船讯网授权码，验证服务权限
     :param area_id: 区域的ID：必填，区域的id，唯一标识，用来后续对区域的删改查
     :return:
