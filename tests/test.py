@@ -9,7 +9,7 @@ if __name__ == '__main__':
     # response = Shipxy.GetManyShip(key, "413961925,477232800,477172700")
     # response = Shipxy.GetFleetShip(key, "f777007b-fb88-4c4c-b4eb-db33e84e99ee")
     # response = Shipxy.GetSurRoundingShip(key, 413961925)
-    # response = Shipxy.GetAreaShip(key, "121.289063,35.424868-122.783203,35.281501-122.167969,33.979809")
+    response = Shipxy.GetAreaShip(key, "121.289063,35.424868-122.783203,35.281501-122.167969,33.979809")
     # response = Shipxy.GetShipRegistry(key, 413961925)
     # response = Shipxy.SearchShipParticular(key, 477172700)
 

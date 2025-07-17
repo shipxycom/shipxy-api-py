@@ -1,6 +1,6 @@
-from typing import List
+from typing import List, Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class SearchShipResult(BaseModel):
@@ -77,11 +77,8 @@ class SurRoundingShipResponse(BaseModel):
 class AreaShipData(BaseModel):
     total: int = None
     scode: int = None
-    continue_: int = None  # 'continue'为Python关键字，改为continue_
+    continue_: Optional[int] = Field(None, alias='continue')  # 使用 alias 映射字段名  # 'continue'为Python关键字，改为continue_
     ship_list: list[ShipPosition] = None
-
-    # class Config:
-    #     fields = {'continue_': 'continue'}
 
 
 class AreaShipResponse(BaseModel):
