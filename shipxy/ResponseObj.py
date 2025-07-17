@@ -2,6 +2,9 @@ from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
+class BaseResponse(BaseModel):
+    status: int = None
+    msg: str = None
 
 class SearchShipResult(BaseModel):
     match_type: int = None
@@ -719,3 +722,29 @@ class GetNavWarningResponse(BaseModel):
     msg: str = None
     total: int = None
     data: List[GetNavWarningData] = None
+
+class FleetData(BaseModel):
+    fleet_id: str = None
+    fleet_name: str = None
+    mmsis: str = None
+    monitor: str = None
+
+class FleetResponse(BaseModel):
+    status: int = None
+    msg: str = None
+    data: FleetData = None
+
+class AreaData(BaseModel):
+    area_id: str = None
+    area_bounds: str = None
+    area_name: str = None
+    url: str = None
+    filter_type: int = None
+    ship_type: Optional[str] = None
+    length: Optional[str] = None
+    fleet_id: Optional[str] = None
+
+class AreaResponse(BaseModel):
+    status: int = None
+    msg: str = None
+    data: AreaData = None

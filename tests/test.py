@@ -39,23 +39,24 @@ if __name__ == '__main__':
 
     # response = Shipxy.GetNavWarning(key, '2024-07-21 20:00', '2024-09-21 20:00', 2)
 
-    response = Shipxy.AddFleet(key, "测试船队1", "477985700,412751691", 1);
-    # response = Shipxy.UpdateFleet(key, 'c02def78-a57d-4311-bee3-1c89a018cddf', "测试船队", "477985700", 1)
-    # response = Shipxy.GetFleet(key, 'c02def78-a57d-4311-bee3-1c89a018cddf')
-    # response = Shipxy.DeleteFleet(key, '8bef754a-b117-4050-8878-65c979185130')
-    # response = Shipxy.AddFleetShip(key, 'c02def78-a57d-4311-bee3-1c89a018cddf',  "477985700,412751690")
-    # response = Shipxy.UpdateFleetShip(key, 'c02def78-a57d-4311-bee3-1c89a018cddf', "477985700")
-    # response = Shipxy.DeleteFleetShip(key, 'c02def78-a57d-4311-bee3-1c89a018cddf', "477985700")
+    # response = Shipxy.AddFleet(key, "测试船队5", "477985705,412751695", 1)
+    # response = Shipxy.UpdateFleet(key, '0372ec4c-eead-49ce-b005-6ffa731cc1df', "测试船队", "477985700", 1)
+    # response = Shipxy.GetFleet(key, '0372ec4c-eead-49ce-b005-6ffa731cc1df')
+    # response = Shipxy.DeleteFleet(key, '4956ee93-e8dc-4aa0-aee7-483cf80fc950')
+    # response = Shipxy.AddFleetShip(key, '0372ec4c-eead-49ce-b005-6ffa731cc1df',  "477985700,412751690")
+    # response = Shipxy.UpdateFleetShip(key, '0372ec4c-eead-49ce-b005-6ffa731cc1df', "477985700")
+    # response = Shipxy.DeleteFleetShip(key, '0372ec4c-eead-49ce-b005-6ffa731cc1df', "477985700")
+
     # response = Shipxy.AddArea(key, "119.846180,32.345143-119.814280,32.311867-119.4661,32.291067-119.375887,32.213847",
     #                           "浙江沿海区域1", "http://192.186.1.1:8000/Shipxy/testdemo",
-    #                           3, 59,"1,2,3", "c02def78-a57d-4311-bee3-1c89a018cddf");
+    #                           3, "59","1,2,3", "0372ec4c-eead-49ce-b005-6ffa731cc1df")
 
-    # response = Shipxy.UpdateArea(key, "1d0a807c-5c39-492f-8c99-8a1135da6667",
+    # response = Shipxy.UpdateArea(key, "075451e6-0ffa-44d4-94d2-adbf17d862a5",
     #                              "119.846180,32.345143-119.814280,32.311867-119.4661,32.291067-119.375887,32.213847",
     #                              "浙江沿海区域", "http://192.186.1.1:8000/Shipxy/testdemo",
-    #                              3, 59, "1,2,3", "c02def78-a57d-4311-bee3-1c89a018cddf");
-    # response = Shipxy.GetArea(key, '1d0a807c-5c39-492f-8c99-8a1135da6667')
-    # response = Shipxy.DeleteArea(key, '1d0a807c-5c39-492f-8c99-8a1135da6667')
+    #                              3, 59, "1,2,3", "c02def78-a57d-4311-bee3-1c89a018cddf")
+    # response = Shipxy.GetArea(key, '075451e6-0ffa-44d4-94d2-adbf17d862a5')
+    response = Shipxy.DeleteArea(key, 'c7b5436f-5e73-4087-aeba-93add7f39f17')
 
     print(response)
     # print("test")

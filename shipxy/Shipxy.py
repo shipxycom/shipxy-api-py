@@ -9,7 +9,7 @@ from shipxy.ResponseObj import SearchShipResponse, SingleShipResponse, ManyShipR
     SearchShipApproachResponse, GetPortOfCallByShipResponse, GetPortOfCallByShipPortResponse, GetShipStatusResponse, \
     GetPortOfCallByPortResponse, PlanRouteByPointResponse, PlanRouteByPortResponse, GetSingleETAPreciseResponse, \
     GetWeatherResponse, GetWeatherByPointResponse, GetAllTyphoonResponse, GetSingleTyphoonResponse, GetTidesResponse, \
-    GetTideDataResponse, GetNavWarningResponse
+    GetTideDataResponse, GetNavWarningResponse, FleetResponse, BaseResponse, AreaResponse
 
 
 def SearchShip(key: str, keywords: str, max: int = 100) -> SearchShipResponse:
@@ -308,7 +308,8 @@ def GetPortofCallByShip(key: str, mmsi: int, start_time: int, end_time: int, imo
 
 
 def GetPortofCallByShipPort(key: str, mmsi: int, port_code: str,
-                            start_time: int, end_time: int, imo: int = None, ship_name: str = None, call_sign: str = None,
+                            start_time: int, end_time: int, imo: int = None, ship_name: str = None,
+                            call_sign: str = None,
                             time_zone: int = 2) -> GetPortOfCallByShipPortResponse:
     """
     * 4挂靠记录-4.2船舶挂靠指定港口记录
@@ -339,7 +340,8 @@ def GetPortofCallByShipPort(key: str, mmsi: int, port_code: str,
     return GetPortOfCallByShipPortResponse(**response)
 
 
-def GetShipStatus(key: str, mmsi: int, imo: int = None, ship_name: str = None, call_sign: str = None, time_zone: int = 2) -> GetShipStatusResponse:
+def GetShipStatus(key: str, mmsi: int, imo: int = None, ship_name: str = None, call_sign: str = None,
+                  time_zone: int = 2) -> GetShipStatusResponse:
     """
     * 4挂靠记录-4.3船舶当前挂靠信息
     * https://hiiau7lsqq.feishu.cn/wiki/O3PRwZoAjiX3DdknudicZnVpnxH
@@ -363,7 +365,8 @@ def GetShipStatus(key: str, mmsi: int, imo: int = None, ship_name: str = None, c
     return GetShipStatusResponse(**response)
 
 
-def GetPortofCallByPort(key: str, port_code: str, start_time: int, end_time: int, type: int = 1, time_zone: int = 2) -> GetPortOfCallByPortResponse:
+def GetPortofCallByPort(key: str, port_code: str, start_time: int, end_time: int, type: int = 1,
+                        time_zone: int = 2) -> GetPortOfCallByPortResponse:
     """
     * 4挂靠记录-4.4港口挂靠历史船舶
     * https://hiiau7lsqq.feishu.cn/wiki/G9BDwzNPqiXdyckzFrBctxYUnHd
@@ -387,7 +390,8 @@ def GetPortofCallByPort(key: str, port_code: str, start_time: int, end_time: int
     return GetPortOfCallByPortResponse(**response)
 
 
-def PlanRouteByPoint(key: str, start_point: str, end_point: str, avoid: str = None, through: str = None) -> PlanRouteByPointResponse:
+def PlanRouteByPoint(key: str, start_point: str, end_point: str, avoid: str = None,
+                     through: str = None) -> PlanRouteByPointResponse:
     """
     * 5航线规划-5.1点到点航线规划
     * https://hiiau7lsqq.feishu.cn/wiki/A3UBwJ7pViozTskSFwPcJ4Ldnze
@@ -409,7 +413,8 @@ def PlanRouteByPoint(key: str, start_point: str, end_point: str, avoid: str = No
     return PlanRouteByPointResponse(**response)
 
 
-def PlanRouteByPort(key: str, start_port_code: str, end_port_code: str, avoid: str = None, through: str = None) -> PlanRouteByPortResponse:
+def PlanRouteByPort(key: str, start_port_code: str, end_port_code: str, avoid: str = None,
+                    through: str = None) -> PlanRouteByPortResponse:
     """
     * 5航线规划-5.2港到港航线规划
     * https://hiiau7lsqq.feishu.cn/wiki/NpsbwNzWWiJRy2k79bscVljTntd
@@ -471,7 +476,7 @@ def GetWeatherByPoint(key: str, lng: float, lat: float, weather_time: int = None
     return GetWeatherByPointResponse(**response)
 
 
-def GetWeather(key: str, weather_type: int)->GetWeatherResponse:
+def GetWeather(key: str, weather_type: int) -> GetWeatherResponse:
     """
     * 6气象天气-6.2海区气象
     * https://hiiau7lsqq.feishu.cn/wiki/EEdPwP4kqi10qjkehH5cmK2Onwc
@@ -551,7 +556,7 @@ def GetTideData(key: str, port_code: str, start_date: str, end_date: str) -> Get
     return GetTideDataResponse(**response)
 
 
-def GetNavWarning(key: str, start_time: str, end_time: str, warning_type: int = 0)->GetNavWarningResponse:
+def GetNavWarning(key: str, start_time: str, end_time: str, warning_type: int = 0) -> GetNavWarningResponse:
     """
     * 8海事数据-8.1航行警告查询
     * https://hiiau7lsqq.feishu.cn/wiki/DCgdwVip5ifCpAkQ3lfcq8OEnOc
@@ -571,7 +576,7 @@ def GetNavWarning(key: str, start_time: str, end_time: str, warning_type: int = 
     return GetNavWarningResponse(**response)
 
 
-def AddFleet(key: str, fleet_name: str, mmsis: str, monitor: int):
+def AddFleet(key: str, fleet_name: str, mmsis: str, monitor: int) -> FleetResponse:
     """
     * 9监控推送-9.1监控船队管理-设置监控船舶列表-创建船队
     * https://hiiau7lsqq.feishu.cn/wiki/RtL0w0iHDioEP6kvZcScIC95nSe
@@ -588,10 +593,10 @@ def AddFleet(key: str, fleet_name: str, mmsis: str, monitor: int):
         "monitor": monitor
     }
     response = postMethodJson("/AddFleet", params)
-    return response
+    return FleetResponse(**response)
 
 
-def UpdateFleet(key: str, fleet_id: str, fleet_name: str, mmsis: str, monitor: int):
+def UpdateFleet(key: str, fleet_id: str, fleet_name: str, mmsis: str, monitor: int) -> FleetResponse:
     """
     * 9监控推送-9.1监控船队管理-设置监控船舶列表-更新船队信息
     * https://hiiau7lsqq.feishu.cn/wiki/RtL0w0iHDioEP6kvZcScIC95nSe
@@ -610,10 +615,10 @@ def UpdateFleet(key: str, fleet_id: str, fleet_name: str, mmsis: str, monitor: i
         "monitor": monitor
     }
     response = postMethodJson("/UpdateFleet", params)
-    return response
+    return FleetResponse(**response)
 
 
-def GetFleet(key: str, fleet_id: str):
+def GetFleet(key: str, fleet_id: str) -> FleetResponse:
     """
     * 9监控推送-9.1监控船队管理-设置监控船舶列表-查询船队
     * https://hiiau7lsqq.feishu.cn/wiki/RtL0w0iHDioEP6kvZcScIC95nSe
@@ -626,10 +631,10 @@ def GetFleet(key: str, fleet_id: str):
         "fleet_id": fleet_id,
     }
     response = getMethodJson("/GetFleet", params)
-    return response
+    return FleetResponse(**response)
 
 
-def DeleteFleet(key: str, fleet_id: str):
+def DeleteFleet(key: str, fleet_id: str) -> BaseResponse:
     """
     * 9监控推送-9.1监控船队管理-设置监控船舶列表-删除船队
     * https://hiiau7lsqq.feishu.cn/wiki/RtL0w0iHDioEP6kvZcScIC95nSe
@@ -642,10 +647,10 @@ def DeleteFleet(key: str, fleet_id: str):
         "fleet_id": fleet_id,
     }
     response = postMethodJson("/DeleteFleet", params)
-    return response
+    return BaseResponse(**response)
 
 
-def AddFleetShip(key: str, fleet_id: str, mmsis: str):
+def AddFleetShip(key: str, fleet_id: str, mmsis: str) -> FleetResponse:
     """
     * 9监控推送-9.1监控船队管理-设置监控船舶列表-船队船舶增加
     * https://hiiau7lsqq.feishu.cn/wiki/RtL0w0iHDioEP6kvZcScIC95nSe
@@ -660,10 +665,10 @@ def AddFleetShip(key: str, fleet_id: str, mmsis: str):
         "mmsis": mmsis,
     }
     response = postMethodJson("/AddFleetShip", params)
-    return response
+    return FleetResponse(**response)
 
 
-def UpdateFleetShip(key: str, fleet_id: str, mmsis: str):
+def UpdateFleetShip(key: str, fleet_id: str, mmsis: str) -> FleetResponse:
     """
     * 9监控推送-9.1监控船队管理-设置监控船舶列表-船队船舶批量更新
     * https://hiiau7lsqq.feishu.cn/wiki/RtL0w0iHDioEP6kvZcScIC95nSe
@@ -678,10 +683,10 @@ def UpdateFleetShip(key: str, fleet_id: str, mmsis: str):
         "mmsis": mmsis,
     }
     response = postMethodJson("/UpdateFleetShip", params)
-    return response
+    return FleetResponse(**response)
 
 
-def DeleteFleetShip(key: str, fleet_id: str, mmsis: str):
+def DeleteFleetShip(key: str, fleet_id: str, mmsis: str) -> FleetResponse:
     """
     * 9监控推送-9.1监控船队管理-设置监控船舶列表-船队船舶删除
     * https://hiiau7lsqq.feishu.cn/wiki/RtL0w0iHDioEP6kvZcScIC95nSe
@@ -696,11 +701,11 @@ def DeleteFleetShip(key: str, fleet_id: str, mmsis: str):
         "mmsis": mmsis,
     }
     response = postMethodJson("/DeleteFleetShip", params)
-    return response
+    return FleetResponse(**response)
 
 
 def AddArea(key: str, area_bounds: str, area_name: str, url: str, filter_type: int, ship_type: str, length: str,
-            fleet_id: str):
+            fleet_id: str) -> AreaResponse:
     """
     * 9监控推送-9.4区域监控推送-区域创建
     * https://hiiau7lsqq.feishu.cn/wiki/A0hSwImnBiuKeMkkXOmcfEA9nBe
@@ -725,11 +730,11 @@ def AddArea(key: str, area_bounds: str, area_name: str, url: str, filter_type: i
         "fleet_id": fleet_id
     }
     response = postMethodJson("/AddArea", params)
-    return response
+    return AreaResponse(**response)
 
 
 def UpdateArea(key: str, area_id: str, area_bounds: str, area_name: str, url: str, filter_type: int, ship_type: str,
-               length: str, fleet_id: str):
+               length: str, fleet_id: str) -> AreaResponse:
     """
     * 9监控推送-9.4区域监控推送-区域更新
     * https://hiiau7lsqq.feishu.cn/wiki/A0hSwImnBiuKeMkkXOmcfEA9nBe
@@ -756,10 +761,10 @@ def UpdateArea(key: str, area_id: str, area_bounds: str, area_name: str, url: st
         "fleet_id": fleet_id
     }
     response = postMethodJson("/UpdateArea", params)
-    return response
+    return AreaResponse(**response)
 
 
-def GetArea(key: str, area_id: str):
+def GetArea(key: str, area_id: str) -> AreaResponse:
     """
     * 9监控推送-9.4区域监控推送-区域查询
     * https://hiiau7lsqq.feishu.cn/wiki/A0hSwImnBiuKeMkkXOmcfEA9nBe
@@ -772,10 +777,10 @@ def GetArea(key: str, area_id: str):
         "area_id": area_id,
     }
     response = postMethodJson("/GetArea", params)
-    return response
+    return AreaResponse(**response)
 
 
-def DeleteArea(key: str, area_id: str):
+def DeleteArea(key: str, area_id: str) -> BaseResponse:
     """
     * 9监控推送-9.4区域监控推送-区域查询
     * https://hiiau7lsqq.feishu.cn/wiki/A0hSwImnBiuKeMkkXOmcfEA9nBe
@@ -788,4 +793,4 @@ def DeleteArea(key: str, area_id: str):
         "area_id": area_id,
     }
     response = postMethodJson("/DeleteArea", params)
-    return response
+    return BaseResponse(**response)
