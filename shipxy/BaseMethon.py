@@ -18,12 +18,12 @@ def postMethod(methodName, params):
 def getMethodJson(methodName, params):
     baseUrl = apiUrl + "/" + methodName
     result = requests.get(baseUrl, params).json()
-    print(result)
+    # print(result)
     return result
 
 
 def postMethodJson(methodName, params):
     baseUrl = apiUrl + "/" + methodName
     result = requests.post(baseUrl, params).json()
-    print(result)
+    # print(result)
     return result
