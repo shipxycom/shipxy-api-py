@@ -1,7 +1,7 @@
 from shipxy import Shipxy
 
-from key import key
-# key = "请从 API控制台 申请";
+# from key import key
+key = "请从 API控制台 申请";
 
 if __name__ == '__main__':
     # response = Shipxy.SearchShip(key, "coco")
@@ -56,7 +56,7 @@ if __name__ == '__main__':
     #                              "浙江沿海区域", "http://192.186.1.1:8000/Shipxy/testdemo",
     #                              3, 59, "1,2,3", "c02def78-a57d-4311-bee3-1c89a018cddf")
     # response = Shipxy.GetArea(key, '075451e6-0ffa-44d4-94d2-adbf17d862a5')
-    response = Shipxy.DeleteArea(key, 'c7b5436f-5e73-4087-aeba-93add7f39f17')
+    # response = Shipxy.DeleteArea(key, 'c7b5436f-5e73-4087-aeba-93add7f39f17')
 
-    print(response)
-    # print("test")
+    # print(response)
+    print("test")
