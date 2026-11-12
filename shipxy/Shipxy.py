@@ -3,6 +3,7 @@ from typing import List
 from pydantic import BaseModel
 
 from shipxy.BaseMethon import postMethodJson, getMethodJson
+from shipxy.ResponseObj import GetGlobalTidesResponse, GetGlobalTideDataResponse, GlobalWeatherResponse
 from shipxy.ResponseObj import SearchShipResponse, SingleShipResponse, ManyShipResponse, FleetShipResponse, \
     SurRoundingShipResponse, AreaShipResponse, ShipRegistryResponse, SearchShipParticularResponse, SearchPortResponse, \
     GetBerthShipsResponse, GetAnchorShipsResponse, GetETAShipsResponse, GetShipTrackResponse, \
@@ -794,3 +795,33 @@ def DeleteArea(key: str, area_id: str) -> BaseResponse:
     }
     response = postMethodJson("/DeleteArea", params)
     return BaseResponse(**response)
+
+
+def GetGlobalTides(key: str) -> GetGlobalTidesResponse:
+    """查询全球潮汐观测站列表。"""
+    response = getMethodJson("GetGlobalTides", {"key": key})
+    return GetGlobalTidesResponse(**response)
+
+
+def GetGlobalTideData(key: str, port_code: int, start_date: str, end_date: str) -> GetGlobalTideDataResponse:
+    """查询全球观测站潮汐。port_code 为观测站 ID；日期 yyyy-MM-dd，单次不超过90天，未来不超过30天。"""
+    response = getMethodJson("GetGlobalTideData", {"key": key, "port_code": port_code, "start_date": start_date, "end_date": end_date})
+    return GetGlobalTideDataResponse(**response)
+
+
+def CurrentWeather(key: str, lng: float, lat: float) -> GlobalWeatherResponse:
+    """查询 WGS84 坐标的实时大气和海洋气象。"""
+    response = getMethodJson("CurrentWeather", {"key": key, "lng": lng, "lat": lat})
+    return GlobalWeatherResponse(**response)
+
+
+def FutureWeather(key: str, lng: float, lat: float) -> GlobalWeatherResponse:
+    """查询 WGS84 坐标的未来大气和海洋气象预报。"""
+    response = getMethodJson("FutureWeather", {"key": key, "lng": lng, "lat": lat})
+    return GlobalWeatherResponse(**response)
+
+
+def HistoryWeather(key: str, lng: float, lat: float, start_time: str, end_time: str) -> GlobalWeatherResponse:
+    """查询历史气象。时间为北京时间 yyyy-MM-dd HH:mm:ss，单次不超过1个月，开始不早于3年前，结束须在24小时前。"""
+    response = getMethodJson("HistoryWeather", {"key": key, "lng": lng, "lat": lat, "start_time": start_time, "end_time": end_time})
+    return GlobalWeatherResponse(**response)

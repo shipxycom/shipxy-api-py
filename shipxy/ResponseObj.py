@@ -748,3 +748,67 @@ class AreaResponse(BaseModel):
     status: int = None
     msg: str = None
     data: AreaData = None
+
+class GlobalTideStationInfo(BaseModel):
+    port_code: Optional[int] = None
+    port_cnname: Optional[str] = None
+    port_name: Optional[str] = None
+    port_country_cnname: Optional[str] = None
+    port_country_name: Optional[str] = None
+    lat: Optional[float] = None
+    lng: Optional[float] = None
+    port_time_zone: Optional[str] = None
+    # The documentation declares float but its example returns a numeric string.
+    datumn: Optional[float] = None
+
+
+class GetGlobalTidesResponse(BaseModel):
+    status: Optional[int] = None
+    msg: Optional[str] = None
+    total: Optional[int] = None
+    data: Optional[List[GlobalTideStationInfo]] = None
+
+
+class GetGlobalTideDataResponse(GetTideDataResponse):
+    data: Optional[GetTideDataData] = None
+
+
+class AtmosphericData(BaseModel):
+    temperature: Optional[float] = None
+    wind_direction_100m: Optional[float] = None
+    wind_speed_100m: Optional[float] = None
+    wind_direction: Optional[float] = None
+    wind_speed: Optional[float] = None
+    atmospheric_pressure: Optional[float] = None
+    visibility: Optional[float] = None
+    precipitation: Optional[float] = None
+    weather: Optional[str] = None
+
+
+class OceanData(BaseModel):
+    wave_direction: Optional[float] = None
+    wave_height: Optional[float] = None
+    wave_period: Optional[float] = None
+    swell_direction: Optional[float] = None
+    swell_height: Optional[float] = None
+    swell_period: Optional[float] = None
+    wind_wave_direction: Optional[float] = None
+    wind_wave_height: Optional[float] = None
+    wind_wave_period: Optional[float] = None
+    ocean_current_direction: Optional[float] = None
+    ocean_current_speed: Optional[float] = None
+    sea_water_height: Optional[float] = None
+    sea_water_temp: Optional[float] = None
+    sea_level_pressure: Optional[float] = None
+
+
+class GlobalWeatherData(BaseModel):
+    observation_time: Optional[str] = None
+    atmospheric_data: Optional[AtmosphericData] = None
+    ocean_data: Optional[OceanData] = None
+
+
+class GlobalWeatherResponse(BaseModel):
+    status: Optional[int] = None
+    msg: Optional[str] = None
+    data: Optional[GlobalWeatherData | List[GlobalWeatherData]] = None
