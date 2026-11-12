@@ -77,11 +77,38 @@ class SurRoundingShipResponse(BaseModel):
     data: list[ShipPosition] = None
 
 
+class AtonData(BaseModel):
+    mmsi: Optional[int] = None
+    aton_name: Optional[str] = None
+    aton_type: Optional[int] = None
+    length: Optional[float] = None
+    width: Optional[float] = None
+    left: Optional[float] = None
+    trail: Optional[float] = None
+    is_virtual: Optional[int] = None
+    lat: Optional[float] = None
+    lng: Optional[float] = None
+    last_time: Optional[str] = None
+    last_time_utc: Optional[int] = None
+
+
+class NetBuoyData(BaseModel):
+    mmsi: Optional[int] = None
+    length: Optional[float] = None
+    width: Optional[float] = None
+    lat: Optional[float] = None
+    lng: Optional[float] = None
+    last_time: Optional[str] = None
+    last_time_utc: Optional[int] = None
+
+
 class AreaShipData(BaseModel):
+    aton_list: Optional[List[AtonData]] = None
+    netbuoy_list: Optional[List[NetBuoyData]] = None
     total: int = None
     scode: int = None
     continue_: Optional[int] = Field(None, alias='continue')  # 使用 alias 映射字段名  # 'continue'为Python关键字，改为continue_
-    ship_list: list[ShipPosition] = None
+    ship_list: Optional[List[ShipPosition]] = None
 
 
 class AreaShipResponse(BaseModel):
@@ -107,6 +134,7 @@ class EngineInfo(BaseModel):
 
 
 class ShipParticularData(BaseModel):
+    status_effective_date: Optional[str] = None
     mmsi: int = None
     imo: int = None
     call_sign: str = None

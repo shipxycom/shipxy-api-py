@@ -27,7 +27,7 @@ def SearchShip(key: str, keywords: str, max: int = 100) -> SearchShipResponse:
         "keywords": keywords,
         "max": max
     }
-    response = postMethodJson("/SearchShip", params)
+    response = getMethodJson("/SearchShip", params)
     return SearchShipResponse(**response)
 
 
@@ -95,7 +95,7 @@ def GetSurRoundingShip(key: str, mmsi: int) -> SurRoundingShipResponse:
     return SurRoundingShipResponse(**response)
 
 
-def GetAreaShip(key: str, region: str, output: int = 1, scode: int = None) -> AreaShipResponse:
+def GetAreaShip(key: str, region: str, output: int = 1, scode: int = None, data_type: int = None) -> AreaShipResponse:
     """
     * 1船舶查询-1.4区域船舶查询
     * https://hiiau7lsqq.feishu.cn/wiki/ZlcrwKpgqik1L3kvbIMcBJUCn1U
@@ -109,7 +109,8 @@ def GetAreaShip(key: str, region: str, output: int = 1, scode: int = None) -> Ar
         "key": key,
         "region": region,
         "output": output,
-        "scode": scode
+        "scode": scode,
+        "data_type": data_type
     }
     response = getMethodJson("/GetAreaShip", params)
     return AreaShipResponse(**response)
@@ -175,7 +176,7 @@ def SearchPort(key: str, keywords: str, max: int = 100) -> SearchPortResponse:
     return SearchPortResponse(**response)
 
 
-def GetBerthShips(key: str, port_code: str, ship_type: int = None) -> GetBerthShipsResponse:
+def GetBerthShips(key: str, port_code: str, ship_type: int = None, search_type: int = None) -> GetBerthShipsResponse:
     """
     * 2港口查询-2.2港口当前靠泊船查询
     * https://hiiau7lsqq.feishu.cn/wiki/KdBNwIxOhijpALkCkNXc69MKn3g
@@ -187,13 +188,14 @@ def GetBerthShips(key: str, port_code: str, ship_type: int = None) -> GetBerthSh
     params = {
         "key": key,
         "port_code": port_code,
-        "ship_type": ship_type
+        "ship_type": ship_type,
+        "search_type": search_type
     }
     response = getMethodJson("/GetBerthShips", params)
     return GetBerthShipsResponse(**response)
 
 
-def GetAnchorShips(key: str, port_code: str, ship_type: int = None) -> GetAnchorShipsResponse:
+def GetAnchorShips(key: str, port_code: str, ship_type: int = None, search_type: int = None) -> GetAnchorShipsResponse:
     """
     * 2港口查询-2.3港口当前到锚船舶查询
     * https://hiiau7lsqq.feishu.cn/wiki/WTHnwa66niA4VhkmNVXchRRSnYe
@@ -205,7 +207,8 @@ def GetAnchorShips(key: str, port_code: str, ship_type: int = None) -> GetAnchor
     params = {
         "key": key,
         "port_code": port_code,
-        "ship_type": ship_type
+        "ship_type": ship_type,
+        "search_type": search_type
     }
     response = getMethodJson("/GetAnchorShips", params)
     return GetAnchorShipsResponse(**response)
@@ -373,7 +376,7 @@ def GetPortofCallByPort(key: str, port_code: str, start_time: int, end_time: int
     * https://hiiau7lsqq.feishu.cn/wiki/G9BDwzNPqiXdyckzFrBctxYUnHd
     :param key: 授权码：必填，船讯网授权码，验证服务权限
     :param port_code: 港口标准code：必填，港口标准五位码
-    :param start_time: 开始时间：必填，历史靠港记录开始时间，Unix 时间戳start_time与end_time为必填项，表示查询[start_time，end_time]之间的结果，最多1次只能查询1年（366天）的靠港记录.
+    :param start_time: 开始时间：必填，历史靠港记录开始时间，Unix 时间戳start_time与end_time为必填项，表示查询[start_time，end_time]之间的结果，最多1次只能查询1周的靠港记录.
     :param end_time: 结束时间：必填，历史靠港记录结束时间，unix 时间戳。
     :param type: 查询类型：选填，查询类型（选填）。1，按照ATA（到港时间）查询；2，按照ATD（离港时间）查询。默认值：1
     :param time_zone: 时区：选填，时间类型(选填)。 1当地时区，如果不存在，使用零时区；2北京时区；3零时区，即格林尼治平均时。默认值：2。
