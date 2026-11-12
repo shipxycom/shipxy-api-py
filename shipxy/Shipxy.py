@@ -2,7 +2,10 @@ from typing import List
 
 from pydantic import BaseModel
 
-from shipxy.BaseMethon import postMethodJson, getMethodJson
+from shipxy.BaseMethon import postMethodJson, getMethodJson, getMethod
+from urllib.parse import urlencode
+from shipxy.BaseMethon import apiUrl
+from shipxy.ResponseObj import SearchSubShipAlertOfSpeedResponse
 from shipxy.ResponseObj import GetGlobalTidesResponse, GetGlobalTideDataResponse, GlobalWeatherResponse
 from shipxy.ResponseObj import SearchShipResponse, SingleShipResponse, ManyShipResponse, FleetShipResponse, \
     SurRoundingShipResponse, AreaShipResponse, ShipRegistryResponse, SearchShipParticularResponse, SearchPortResponse, \
@@ -394,14 +397,15 @@ def GetPortofCallByPort(key: str, port_code: str, start_time: int, end_time: int
     return GetPortOfCallByPortResponse(**response)
 
 
-def PlanRouteByPoint(key: str, start_point: str, end_point: str, avoid: str = None,
-                     through: str = None) -> PlanRouteByPointResponse:
+def PlanRouteByPoint(key: str, start_point: str, end_point: str = None, avoid: str = None,
+                     through: str = None, end_port_code: str = None) -> PlanRouteByPointResponse:
     """
     * 5航线规划-5.1点到点航线规划
     * https://hiiau7lsqq.feishu.cn/wiki/A3UBwJ7pViozTskSFwPcJ4Ldnze
     :param key: 授权码：必填，船讯网授权码，验证服务权限
     :param start_point: 起始点：必填，出发的位置点，lng,lat
-    :param end_point: 结束点：必填，到达的位置点，lng,lat
+    :param end_point: 结束点：与end_port_code至少填写一项；两项都填时终点港口优先。
+    :param end_port_code: 终点港口五位码。
     :param avoid: 绕航节点：非必填，需要避让的节点，id详见附录7 。绕航多节点时，不同id之间使用逗号分隔；不填则不绕航；一次请求绕航的节点控制在10个以内。
     :param through: 查询类型：非必填，必经的点，lng,lat - lng,lat；多点之间用“-”连接；不填则不必经；一次请求途经的节点控制在30个以内。
     :return:
@@ -410,6 +414,7 @@ def PlanRouteByPoint(key: str, start_point: str, end_point: str, avoid: str = No
         "key": key,
         "start_point": start_point,
         "end_point": end_point,
+        "end_port_code": end_port_code,
         "avoid": avoid,
         "through": through,
     }
@@ -440,7 +445,7 @@ def PlanRouteByPort(key: str, start_port_code: str, end_port_code: str, avoid: s
     return PlanRouteByPortResponse(**response)
 
 
-def GetSingleETAPrecise(key: str, mmsi: int, port_code: str, speed: float = None) -> GetSingleETAPreciseResponse:
+def GetSingleETAPrecise(key: str, mmsi: int, port_code: str = None, speed: float = None) -> GetSingleETAPreciseResponse:
     """
     * 5航线规划-5.3预计到达时间(ETA)查询
     * https://hiiau7lsqq.feishu.cn/wiki/NMxnw8fEHiRhrPkIpwTcovdfnOg
@@ -510,7 +515,7 @@ def GetAllTyphoon(key: str) -> GetAllTyphoonResponse:
     return GetAllTyphoonResponse(**response)
 
 
-def GetSingleTyphoon(key: str, typhoon_id: int) -> GetSingleTyphoonResponse:
+def GetSingleTyphoon(key: str, typhoon_id: str | int) -> GetSingleTyphoonResponse:
     """
     * 6气象天气-6.3全球台风-获取单个台风信息
     * https://hiiau7lsqq.feishu.cn/wiki/PuWSw4Nteir49WkMccMcryjNnbp
@@ -580,7 +585,7 @@ def GetNavWarning(key: str, start_time: str, end_time: str, warning_type: int = 
     return GetNavWarningResponse(**response)
 
 
-def AddFleet(key: str, fleet_name: str, mmsis: str, monitor: int) -> FleetResponse:
+def AddFleet(key: str, fleet_name: str, mmsis: str, monitor: str | int) -> FleetResponse:
     """
     * 9监控推送-9.1监控船队管理-设置监控船舶列表-创建船队
     * https://hiiau7lsqq.feishu.cn/wiki/RtL0w0iHDioEP6kvZcScIC95nSe
@@ -600,7 +605,7 @@ def AddFleet(key: str, fleet_name: str, mmsis: str, monitor: int) -> FleetRespon
     return FleetResponse(**response)
 
 
-def UpdateFleet(key: str, fleet_id: str, fleet_name: str, mmsis: str, monitor: int) -> FleetResponse:
+def UpdateFleet(key: str, fleet_id: str, fleet_name: str = None, mmsis: str = None, monitor: str | int = None) -> FleetResponse:
     """
     * 9监控推送-9.1监控船队管理-设置监控船舶列表-更新船队信息
     * https://hiiau7lsqq.feishu.cn/wiki/RtL0w0iHDioEP6kvZcScIC95nSe
@@ -708,8 +713,8 @@ def DeleteFleetShip(key: str, fleet_id: str, mmsis: str) -> FleetResponse:
     return FleetResponse(**response)
 
 
-def AddArea(key: str, area_bounds: str, area_name: str, url: str, filter_type: int, ship_type: str, length: str,
-            fleet_id: str) -> AreaResponse:
+def AddArea(key: str, area_bounds: str, area_name: str, url: str, filter_type: int, ship_type: str = None, length: str = None,
+            fleet_id: str = None) -> AreaResponse:
     """
     * 9监控推送-9.4区域监控推送-区域创建
     * https://hiiau7lsqq.feishu.cn/wiki/A0hSwImnBiuKeMkkXOmcfEA9nBe
@@ -737,8 +742,8 @@ def AddArea(key: str, area_bounds: str, area_name: str, url: str, filter_type: i
     return AreaResponse(**response)
 
 
-def UpdateArea(key: str, area_id: str, area_bounds: str, area_name: str, url: str, filter_type: int, ship_type: str,
-               length: str, fleet_id: str) -> AreaResponse:
+def UpdateArea(key: str, area_id: str, area_bounds: str = None, area_name: str = None, url: str = None, filter_type: int = None, ship_type: str = None,
+               length: str = None, fleet_id: str = None) -> AreaResponse:
     """
     * 9监控推送-9.4区域监控推送-区域更新
     * https://hiiau7lsqq.feishu.cn/wiki/A0hSwImnBiuKeMkkXOmcfEA9nBe
@@ -780,7 +785,7 @@ def GetArea(key: str, area_id: str) -> AreaResponse:
         "key": key,
         "area_id": area_id,
     }
-    response = postMethodJson("/GetArea", params)
+    response = getMethodJson("/GetArea", params)
     return AreaResponse(**response)
 
 
@@ -828,3 +833,45 @@ def HistoryWeather(key: str, lng: float, lat: float, start_time: str, end_time: 
     """查询历史气象。时间为北京时间 yyyy-MM-dd HH:mm:ss，单次不超过1个月，开始不早于3年前，结束须在24小时前。"""
     response = getMethodJson("HistoryWeather", {"key": key, "lng": lng, "lat": lat, "start_time": start_time, "end_time": end_time})
     return GlobalWeatherResponse(**response)
+
+
+def SubShipAlertOfSpeed(key: str, mmsi: str, speed_limit: str, speed_duration: float = None) -> BaseResponse:
+    """独立航速提醒订阅。speed_limit为最小-最大航速，speed_duration单位分钟。"""
+    response = getMethodJson("SubShipAlertOfSpeed", {"key": key, "mmsi": mmsi, "speed_limit": speed_limit, "speed_duration": speed_duration})
+    return BaseResponse(**response)
+
+
+def UnsubShipAlertOfSpeed(key: str, mmsi: str) -> BaseResponse:
+    """独立航速提醒订阅。speed_limit为最小-最大航速，speed_duration单位分钟。"""
+    response = getMethodJson("UnsubShipAlertOfSpeed", {"key": key, "mmsi": mmsi})
+    return BaseResponse(**response)
+
+
+def SearchSubShipAlertOfSpeed(key: str) -> SearchSubShipAlertOfSpeedResponse:
+    """独立航速提醒订阅。speed_limit为最小-最大航速，speed_duration单位分钟。"""
+    response = getMethodJson("SearchSubShipAlertOfSpeed", {"key": key})
+    return SearchSubShipAlertOfSpeedResponse(**response)
+
+
+def GetShipRasterImage(key: str, tile_type: int, x: int, y: int, z: int) -> bytes:
+    """返回图片字节。光栅图需配合海图JS和服务权限，地图图层可使用对应URL方法。"""
+    response = getMethod("GetShipRasterImage", {"key": key, "tile_type": tile_type, "x": x, "y": y, "z": z})
+    response.raise_for_status()
+    return response.content
+
+
+def GetShipRasterImageUrl(key: str, tile_type: int, x: int, y: int, z: int) -> str:
+    """仅构造地图图层URL，不发送网络请求。"""
+    return apiUrl + "/GetShipRasterImage?" + urlencode({"key": key, "tile_type": tile_type, "x": x, "y": y, "z": z})
+
+
+def GetPortTile(key: str, projection_type: str, x: int, y: int, z: int) -> bytes:
+    """返回图片字节。光栅图需配合海图JS和服务权限，地图图层可使用对应URL方法。"""
+    response = getMethod("GetPortTile", {"key": key, "projection_type": projection_type, "x": x, "y": y, "z": z})
+    response.raise_for_status()
+    return response.content
+
+
+def GetPortTileUrl(key: str, projection_type: str, x: int, y: int, z: int) -> str:
+    """仅构造地图图层URL，不发送网络请求。"""
+    return apiUrl + "/GetPortTile?" + urlencode({"key": key, "projection_type": projection_type, "x": x, "y": y, "z": z})

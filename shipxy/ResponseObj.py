@@ -533,9 +533,9 @@ class SingleETAPortInfo(BaseModel):
     port_country_code: str = None
     port_country_name: str = None
     port_country_cnname: str = None
-    ata: float = None
-    atb: float = None
-    atd: float = None
+    ata: str | float = None
+    atb: str | float = None
+    atd: str | float = None
 
 
 class SingleETANextPortInfo(BaseModel):
@@ -591,7 +591,7 @@ class GetWeatherResponse(BaseModel):
 
 
 class TyphoonListItem(BaseModel):
-    typhoon_id: int = None
+    typhoon_id: str | int = None
     typhoon_code: int = None
     typhoon_cncode: str = None
     typhoon_cnname: str = None
@@ -608,8 +608,8 @@ class GetAllTyphoonResponse(BaseModel):
 
 
 class TyphoonDetailItem(BaseModel):
-    typhoon_id: int = None
-    typhoon_time: int = None
+    typhoon_id: str | int = None
+    typhoon_time: str | int = None
     forecast: str = None
     fhour: str = None
     lat: float = None
@@ -621,9 +621,9 @@ class TyphoonDetailItem(BaseModel):
     direction: str = None
     radius7: float = None
     radius10: float = None
-    radius7_s: float = None
-    radius10_s: float = None
-    radius12_s: float = None
+    radius7_s: str | float = None
+    radius10_s: str | float = None
+    radius12_s: str | float = None
 
 
 class GetSingleTyphoonResponse(BaseModel):
@@ -840,3 +840,14 @@ class GlobalWeatherResponse(BaseModel):
     status: Optional[int] = None
     msg: Optional[str] = None
     data: Optional[GlobalWeatherData | List[GlobalWeatherData]] = None
+
+
+class SpeedSubscriptionData(BaseModel):
+    mmsi: Optional[int | str] = None
+    speed_limit: Optional[str] = None
+    speed_duration: Optional[float] = None
+
+
+class SearchSubShipAlertOfSpeedResponse(BaseResponse):
+    total: Optional[int] = None
+    data: Optional[List[SpeedSubscriptionData]] = None

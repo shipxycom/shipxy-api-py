@@ -8,8 +8,10 @@ setup(
     version='0.3',
     packages=find_packages(),
     install_requires=[
-        'requests'
+        'requests',
+        'pydantic>=1.10,<3'
     ],
+    python_requires='>=3.10',
     author="White",
     author_email="249898979@qq.com",
     description="亿海蓝Elane船讯网sdk https://www.shipxy.com/",
