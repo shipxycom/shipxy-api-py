@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, ClassVar
 
 from pydantic import BaseModel, Field
 
@@ -342,7 +342,23 @@ class SearchShipApproachResponse(BaseModel):
     data: ShipApproachData = None
 
 
-class PortOfCallData(BaseModel):
+class DocumentAliasModel(BaseModel):
+    """Accept documented example spellings without renaming existing fields."""
+    _document_aliases: ClassVar[dict[str, str]] = {}
+
+    def __init__(self, **data):
+        values = dict(data)
+        for alias, canonical in self._document_aliases.items():
+            if canonical not in values and alias in values:
+                values[canonical] = values[alias]
+        super().__init__(**values)
+
+class PortOfCallData(DocumentAliasModel):
+    _document_aliases: ClassVar[dict[str, str]] = {
+        'arrval_anchorage': 'arrival_anchorage',
+        'stay_interminal_time': 'stay_terminal_time',
+    }
+
     ship_name: str = None
     call_sign: str = None
     imo: int = None
@@ -840,14 +856,3 @@ class GlobalWeatherResponse(BaseModel):
     status: Optional[int] = None
     msg: Optional[str] = None
     data: Optional[GlobalWeatherData | List[GlobalWeatherData]] = None
-
-
-class SpeedSubscriptionData(BaseModel):
-    mmsi: Optional[int | str] = None
-    speed_limit: Optional[str] = None
-    speed_duration: Optional[float] = None
-
-
-class SearchSubShipAlertOfSpeedResponse(BaseResponse):
-    total: Optional[int] = None
-    data: Optional[List[SpeedSubscriptionData]] = None

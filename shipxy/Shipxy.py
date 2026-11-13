@@ -2,10 +2,7 @@ from typing import List
 
 from pydantic import BaseModel
 
-from shipxy.BaseMethon import postMethodJson, getMethodJson, getMethod
-from urllib.parse import urlencode
-from shipxy.BaseMethon import apiUrl
-from shipxy.ResponseObj import SearchSubShipAlertOfSpeedResponse
+from shipxy.BaseMethon import postMethodJson, getMethodJson
 from shipxy.ResponseObj import GetGlobalTidesResponse, GetGlobalTideDataResponse, GlobalWeatherResponse
 from shipxy.ResponseObj import SearchShipResponse, SingleShipResponse, ManyShipResponse, FleetShipResponse, \
     SurRoundingShipResponse, AreaShipResponse, ShipRegistryResponse, SearchShipParticularResponse, SearchPortResponse, \
@@ -833,45 +830,3 @@ def HistoryWeather(key: str, lng: float, lat: float, start_time: str, end_time: 
     """查询历史气象。时间为北京时间 yyyy-MM-dd HH:mm:ss，单次不超过1个月，开始不早于3年前，结束须在24小时前。"""
     response = getMethodJson("HistoryWeather", {"key": key, "lng": lng, "lat": lat, "start_time": start_time, "end_time": end_time})
     return GlobalWeatherResponse(**response)
-
-
-def SubShipAlertOfSpeed(key: str, mmsi: str, speed_limit: str, speed_duration: float = None) -> BaseResponse:
-    """独立航速提醒订阅。speed_limit为最小-最大航速，speed_duration单位分钟。"""
-    response = getMethodJson("SubShipAlertOfSpeed", {"key": key, "mmsi": mmsi, "speed_limit": speed_limit, "speed_duration": speed_duration})
-    return BaseResponse(**response)
-
-
-def UnsubShipAlertOfSpeed(key: str, mmsi: str) -> BaseResponse:
-    """独立航速提醒订阅。speed_limit为最小-最大航速，speed_duration单位分钟。"""
-    response = getMethodJson("UnsubShipAlertOfSpeed", {"key": key, "mmsi": mmsi})
-    return BaseResponse(**response)
-
-
-def SearchSubShipAlertOfSpeed(key: str) -> SearchSubShipAlertOfSpeedResponse:
-    """独立航速提醒订阅。speed_limit为最小-最大航速，speed_duration单位分钟。"""
-    response = getMethodJson("SearchSubShipAlertOfSpeed", {"key": key})
-    return SearchSubShipAlertOfSpeedResponse(**response)
-
-
-def GetShipRasterImage(key: str, tile_type: int, x: int, y: int, z: int) -> bytes:
-    """返回图片字节。光栅图需配合海图JS和服务权限，地图图层可使用对应URL方法。"""
-    response = getMethod("GetShipRasterImage", {"key": key, "tile_type": tile_type, "x": x, "y": y, "z": z})
-    response.raise_for_status()
-    return response.content
-
-
-def GetShipRasterImageUrl(key: str, tile_type: int, x: int, y: int, z: int) -> str:
-    """仅构造地图图层URL，不发送网络请求。"""
-    return apiUrl + "/GetShipRasterImage?" + urlencode({"key": key, "tile_type": tile_type, "x": x, "y": y, "z": z})
-
-
-def GetPortTile(key: str, projection_type: str, x: int, y: int, z: int) -> bytes:
-    """返回图片字节。光栅图需配合海图JS和服务权限，地图图层可使用对应URL方法。"""
-    response = getMethod("GetPortTile", {"key": key, "projection_type": projection_type, "x": x, "y": y, "z": z})
-    response.raise_for_status()
-    return response.content
-
-
-def GetPortTileUrl(key: str, projection_type: str, x: int, y: int, z: int) -> str:
-    """仅构造地图图层URL，不发送网络请求。"""
-    return apiUrl + "/GetPortTile?" + urlencode({"key": key, "projection_type": projection_type, "x": x, "y": y, "z": z})
